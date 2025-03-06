@@ -1,0 +1,17 @@
+export const houseQuotes = [
+  "Everybody lies.",
+  "If you want crappy answers, ask well-meaning questions.",
+  "I don't ask why patients lie, I just assume they all do.",
+  "It's a basic truth of the human condition that everybody lies. The only variable is about what.",
+  "I take risks, sometimes patients die. But not taking risks causes more patients to die.",
+  "People choose the paths that grant them the greatest rewards for the least amount of effort.",
+  "If you're dying, suddenly everybody loves you.",
+  "Reality is almost always wrong.",
+  "People don't want a diagnosis, they want an explanation.",
+  "Perseverance does not equal worthiness.",
+  "Life is pain. I wake up every morning, I'm in pain. You know how many times I wanted to just give up? How many times I've thought about ending it?",
+  "There's no I in team. There is a me though, if you jumble it up.",
+  "The thing about the truth is it doesn't care what we want.",
+  "Almost everything is odd when you think about it long enough.",
+  "You can't always get what you want.",
+];
