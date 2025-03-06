@@ -1,17 +1,23 @@
 import { createContext, useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   const login = (credentials) => {
-    // Implement login logic here
-    setUser({ id: 1, name: 'Test User' });
+    if (credentials.email === 'design@thunderlightmedia.com' && credentials.password === 'Credible') {
+      setUser({ id: 1, email: credentials.email });
+      return true;
+    }
+    return false;
   };
 
   const logout = () => {
     setUser(null);
+    navigate('/login');
   };
 
   return (

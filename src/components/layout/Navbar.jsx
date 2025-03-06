@@ -11,29 +11,20 @@ export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hasNewNotifications] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedGroup, setSelectedGroup] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState('');
 
-  const notifications = [
-    {
-      id: 1,
-      type: 'task',
-      title: 'New Credential Request',
-      message: 'Dr. Sarah Johnson submitted a new credential request',
-      time: '5 minutes ago'
-    },
-    {
-      id: 2,
-      type: 'alert',
-      title: 'Expiring License',
-      message: "Dr. Michael Smith's medical license expires in 30 days",
-      time: '1 hour ago'
-    },
-    {
-      id: 3,
-      type: 'success',
-      title: 'Approval Completed',
-      message: 'Credentialing approved for Valley Health Clinic',
-      time: '2 hours ago'
-    }
+  const groups = [
+    { id: '1', name: 'Surgery Center A' },
+    { id: '2', name: 'Medical Group B' },
+    { id: '3', name: 'Clinic C' }
+  ];
+
+  const statuses = [
+    { id: 'active', name: 'Active' },
+    { id: 'pending', name: 'Pending' },
+    { id: 'review', name: 'Under Review' },
+    { id: 'expired', name: 'Expired' }
   ];
 
   return (
@@ -53,23 +44,47 @@ export const Navbar = () => {
                 )}
               </button>
               <Link to="/" className="flex-shrink-0 flex items-center">
-                <span className="text-2xl font-['Poppins'] font-semibold bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
-                  Credible
-                </span>
+                <img
+                  src={darkMode ? '/credible-logo-dark.svg' : '/credible-logo-light.svg'}
+                  alt="Credible"
+                  className="h-10 w-auto"
+                />
               </Link>
             </div>
 
             {/* Search Bar */}
-            <div className="hidden md:flex flex-1 max-w-2xl mx-4">
-              <div className="relative w-full">
-                <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
-                <input
-                  type="text"
-                  placeholder="Search providers, credentials, documents..."
-                  className="w-full pl-10 pr-4 py-2 border rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
+            <div className="hidden md:flex flex-1 max-w-3xl mx-4">
+              <div className="flex w-full gap-2">
+                <div className="relative flex-1">
+                  <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+                  <input
+                    type="text"
+                    placeholder="Search providers, credentials, documents..."
+                    className="w-full pl-10 pr-4 py-2 border rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
+                <select
+                  className="border rounded-lg px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  value={selectedGroup}
+                  onChange={(e) => setSelectedGroup(e.target.value)}
+                >
+                  <option value="">All Groups</option>
+                  {groups.map(group => (
+                    <option key={group.id} value={group.id}>{group.name}</option>
+                  ))}
+                </select>
+                <select
+                  className="border rounded-lg px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  value={selectedStatus}
+                  onChange={(e) => setSelectedStatus(e.target.value)}
+                >
+                  <option value="">All Statuses</option>
+                  {statuses.map(status => (
+                    <option key={status.id} value={status.id}>{status.name}</option>
+                  ))}
+                </select>
               </div>
             </div>
 
@@ -160,7 +175,7 @@ export const Navbar = () => {
       <NotificationPanel
         isOpen={isNotificationPanelOpen}
         onClose={() => setIsNotificationPanelOpen(false)}
-        notifications={notifications}
+        notifications={[]}
       />
     </>
   );

@@ -10,8 +10,10 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src')
     }
   },
-   build: {
+  publicDir: 'public',
+  build: {
     outDir: 'dist',
-    sourcemap: true
-  },
+    sourcemap: true,
+    assetsDir: 'assets'
+  }
 });
