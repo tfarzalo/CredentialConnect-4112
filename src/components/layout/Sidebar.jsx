@@ -15,8 +15,8 @@ export const Sidebar = () => {
   const location = useLocation();
 
   return (
-    <aside className="hidden md:block w-64 bg-white dark:bg-gray-800 shadow-sm min-h-screen">
-      <nav className="mt-5 px-2">
+    <aside className="hidden md:flex md:flex-col w-64 bg-white dark:bg-gray-800 shadow-sm min-h-screen">
+      <nav className="flex-1 mt-5 px-2">
         <div className="space-y-1">
           {menuItems.map((item) => {
             const isActive = location.pathname === item.path;
@@ -48,6 +48,13 @@ export const Sidebar = () => {
           })}
         </div>
       </nav>
+      
+      {/* Copyright Footer */}
+      <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+        <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+          Copyright 2025 Sullivan Management & Consulting Group | Credible
+        </p>
+      </div>
     </aside>
   );
 };

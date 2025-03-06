@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiUser, FiBell, FiSettings, FiMoon, FiSun, FiMenu, FiX } from 'react-icons/fi';
+import { FiUser, FiBell, FiSettings, FiMoon, FiSun, FiMenu, FiX, FiSearch } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDarkMode } from '../../contexts/DarkModeContext';
 import { NotificationPanel } from '../notifications/NotificationPanel';
@@ -10,6 +10,7 @@ export const Navbar = () => {
   const [isNotificationPanelOpen, setIsNotificationPanelOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hasNewNotifications] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const notifications = [
     {
@@ -40,7 +41,7 @@ export const Navbar = () => {
       <nav className="w-full bg-white dark:bg-gray-800 shadow-sm fixed top-0 z-50">
         <div className="max-w-full mx-auto">
           <div className="flex h-16 px-4 items-center justify-between">
-            <div className="flex items-center">
+            <div className="flex items-center space-x-4">
               <button
                 className="p-2 rounded-lg md:hidden"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -51,11 +52,25 @@ export const Navbar = () => {
                   <FiMenu className="h-6 w-6 text-gray-600 dark:text-gray-300" />
                 )}
               </button>
-              <Link to="/" className="flex-shrink-0 flex items-center ml-2 md:ml-0">
+              <Link to="/" className="flex-shrink-0 flex items-center">
                 <span className="text-2xl font-['Poppins'] font-semibold bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
                   Credible
                 </span>
               </Link>
+            </div>
+
+            {/* Search Bar */}
+            <div className="hidden md:flex flex-1 max-w-2xl mx-4">
+              <div className="relative w-full">
+                <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+                <input
+                  type="text"
+                  placeholder="Search providers, credentials, documents..."
+                  className="w-full pl-10 pr-4 py-2 border rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
             </div>
 
             <div className="flex items-center space-x-2 md:space-x-4">
@@ -99,31 +114,43 @@ export const Navbar = () => {
               exit={{ height: 0, opacity: 0 }}
               className="md:hidden bg-white dark:bg-gray-800 border-t dark:border-gray-700"
             >
-              <div className="px-4 py-3 space-y-1">
-                <Link
-                  to="/providers"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >
-                  Providers
-                </Link>
-                <Link
-                  to="/credentials"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >
-                  Credentials
-                </Link>
-                <Link
-                  to="/documents"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >
-                  Documents
-                </Link>
-                <Link
-                  to="/settings"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                >
-                  Settings
-                </Link>
+              <div className="p-4">
+                <div className="relative mb-4">
+                  <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500" />
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    className="w-full pl-10 pr-4 py-2 border rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <Link
+                    to="/providers"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    Providers
+                  </Link>
+                  <Link
+                    to="/credentials"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    Credentials
+                  </Link>
+                  <Link
+                    to="/documents"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    Documents
+                  </Link>
+                  <Link
+                    to="/settings"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                  >
+                    Settings
+                  </Link>
+                </div>
               </div>
             </motion.div>
           )}
