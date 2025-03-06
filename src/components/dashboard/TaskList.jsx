@@ -1,9 +1,7 @@
-// Update the TaskList component styling
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiFile, FiClock, FiAlertCircle } from 'react-icons/fi';
 
-const TaskItem = ({ task }) => {
+const TaskItem = ({ task, onClick }) => {
   const categoryColors = {
     Documentation: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200',
     New: 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200',
@@ -15,6 +13,11 @@ const TaskItem = ({ task }) => {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.01 }}
+      onClick={() => onClick({
+        ...task,
+        categoryColor: categoryColors[task.category]
+      })}
       className="flex items-center justify-between p-3 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg cursor-pointer"
     >
       <div className="flex items-center space-x-3">
@@ -38,7 +41,7 @@ const TaskItem = ({ task }) => {
   );
 };
 
-export const TaskList = () => {
+export const TaskList = ({ onTaskClick }) => {
   const tasks = [
     {
       id: 1,
@@ -77,7 +80,7 @@ export const TaskList = () => {
   return (
     <div className="space-y-2">
       {tasks.map(task => (
-        <TaskItem key={task.id} task={task} />
+        <TaskItem key={task.id} task={task} onClick={onTaskClick} />
       ))}
     </div>
   );
