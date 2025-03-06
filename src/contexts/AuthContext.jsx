@@ -4,19 +4,15 @@ import { useNavigate } from 'react-router-dom';
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  // Set a default user to bypass login
+  const [user] = useState({ id: 1, email: 'design@thunderlightmedia.com' });
   const navigate = useNavigate();
 
   const login = (credentials) => {
-    if (credentials.email === 'design@thunderlightmedia.com' && credentials.password === 'Credible') {
-      setUser({ id: 1, email: credentials.email });
-      return true;
-    }
-    return false;
+    return true; // Always return true to bypass login
   };
 
   const logout = () => {
-    setUser(null);
     navigate('/login');
   };
 

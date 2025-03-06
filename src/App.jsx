@@ -1,7 +1,6 @@
 import { HashRouter as Router } from 'react-router-dom';
 import { AppRoutes } from './routes';
 import { Layout } from './components/layout/Layout';
-import { NotificationProvider } from './contexts/NotificationContext';
 import { DarkModeProvider } from './contexts/DarkModeContext';
 import { AuthProvider } from './contexts/AuthContext';
 import './App.css';
@@ -11,11 +10,9 @@ function App() {
     <Router>
       <DarkModeProvider>
         <AuthProvider>
-          <NotificationProvider>
-            <Layout>
-              <AppRoutes />
-            </Layout>
-          </NotificationProvider>
+          <Layout>
+            <AppRoutes />
+          </Layout>
         </AuthProvider>
       </DarkModeProvider>
     </Router>

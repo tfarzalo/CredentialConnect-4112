@@ -1,21 +1,25 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FiHome, FiUsers, FiFolder, FiBriefcase, FiSettings, FiPieChart } from 'react-icons/fi';
+import { FiHome, FiUsers, FiBriefcase, FiFolder, FiSettings } from 'react-icons/fi';
 
 const menuItems = [
   { icon: FiHome, label: 'Dashboard', path: '/' },
   { icon: FiUsers, label: 'Providers', path: '/providers' },
-  { icon: FiBriefcase, label: 'Groups', path: '/groups' },
+  { icon: FiBriefcase, label: 'Credentials', path: '/credentials' },
   { icon: FiFolder, label: 'Documents', path: '/documents' },
-  { icon: FiPieChart, label: 'Reports', path: '/reports' },
+  { icon: FiUsers, label: 'Groups', path: '/groups' },
   { icon: FiSettings, label: 'Settings', path: '/settings' }
 ];
 
-export const Sidebar = () => {
+export const Sidebar = ({ isOpen }) => {
   const location = useLocation();
 
   return (
-    <aside className="hidden md:flex md:flex-col w-64 bg-white dark:bg-gray-800 shadow-sm min-h-screen">
+    <aside 
+      className={`${
+        isOpen ? 'md:w-64' : 'md:w-20'
+      } hidden md:flex md:flex-col bg-white dark:bg-gray-800 shadow-sm min-h-screen transition-all duration-300`}
+    >
       <nav className="flex-1 mt-5 px-2">
         <div className="space-y-1">
           {menuItems.map((item) => {
@@ -30,31 +34,28 @@ export const Sidebar = () => {
                     : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                 }`}
               >
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  className="mr-4 h-6 w-6"
-                >
+                <motion.div whileHover={{ scale: 1.1 }} className="mr-4 h-6 w-6">
                   <item.icon
                     className={`h-6 w-6 ${
-                      isActive
-                        ? 'text-primary-600 dark:text-primary-200'
-                        : 'text-gray-400 dark:text-gray-500'
+                      isActive ? 'text-primary-600 dark:text-primary-200' : 'text-gray-400 dark:text-gray-500'
                     }`}
                   />
                 </motion.div>
-                {item.label}
+                {isOpen && <span>{item.label}</span>}
               </Link>
             );
           })}
         </div>
       </nav>
-      
-      {/* Copyright Footer */}
-      <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-        <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-          Copyright 2025 Sullivan Management & Consulting Group | Credible
-        </p>
-      </div>
+      {isOpen && (
+        <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+          <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+            © 2024 Credible
+          </p>
+        </div>
+      )}
     </aside>
   );
 };
+
+export default Sidebar;

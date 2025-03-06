@@ -1,7 +1,31 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiX, FiClock, FiAlertCircle, FiCheckCircle, FiFileText } from 'react-icons/fi';
+import { FiX, FiBell, FiClock, FiCheckCircle } from 'react-icons/fi';
 
-export const NotificationPanel = ({ isOpen, onClose, notifications }) => {
+export const NotificationPanel = ({ isOpen, onClose }) => {
+  const notifications = [
+    {
+      id: 1,
+      title: "Credential Review Required",
+      message: "Dr. Sarah Johnson's medical license needs review",
+      type: "review",
+      time: "2 hours ago"
+    },
+    {
+      id: 2,
+      title: "Document Expiring Soon",
+      message: "DEA Certificate expires in 30 days",
+      type: "warning",
+      time: "5 hours ago"
+    },
+    {
+      id: 3,
+      title: "Verification Complete",
+      message: "Dr. Michael Smith's board certification verified",
+      type: "success",
+      time: "1 day ago"
+    }
+  ];
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -33,41 +57,40 @@ export const NotificationPanel = ({ isOpen, onClose, notifications }) => {
                 </button>
               </div>
             </div>
-            <div className="overflow-y-auto h-full pb-20">
-              {notifications.map((notification) => (
-                <motion.div
-                  key={notification.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-4 border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
-                >
-                  <div className="flex items-start">
-                    {notification.type === 'task' && (
-                      <FiClock className="h-5 w-5 text-blue-500 mt-1" />
-                    )}
-                    {notification.type === 'alert' && (
-                      <FiAlertCircle className="h-5 w-5 text-red-500 mt-1" />
-                    )}
-                    {notification.type === 'success' && (
-                      <FiCheckCircle className="h-5 w-5 text-green-500 mt-1" />
-                    )}
-                    {notification.type === 'document' && (
-                      <FiFileText className="h-5 w-5 text-yellow-500 mt-1" />
-                    )}
-                    <div className="ml-3">
-                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                        {notification.title}
-                      </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        {notification.message}
-                      </p>
-                      <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
-                        {notification.time}
-                      </p>
+            <div className="p-4">
+              <div className="space-y-4">
+                {notifications.map((notification) => (
+                  <div
+                    key={notification.id}
+                    className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow"
+                  >
+                    <div className="flex items-start">
+                      <div className="flex-shrink-0">
+                        {notification.type === 'review' && (
+                          <FiClock className="h-5 w-5 text-yellow-500" />
+                        )}
+                        {notification.type === 'warning' && (
+                          <FiBell className="h-5 w-5 text-red-500" />
+                        )}
+                        {notification.type === 'success' && (
+                          <FiCheckCircle className="h-5 w-5 text-green-500" />
+                        )}
+                      </div>
+                      <div className="ml-3 flex-1">
+                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                          {notification.title}
+                        </p>
+                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                          {notification.message}
+                        </p>
+                        <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                          {notification.time}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </motion.div>
-              ))}
+                ))}
+              </div>
             </div>
           </motion.div>
         </>
